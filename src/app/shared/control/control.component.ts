@@ -5,6 +5,9 @@ import {
   inject,
   input,
   ViewEncapsulation,
+  AfterContentInit,
+  afterNextRender,
+  afterRender,
 } from '@angular/core';
 
 @Component({
@@ -19,7 +22,7 @@ import {
     '(click)': 'onClick()',
   },
 })
-export class ControlComponent {
+export class ControlComponent implements AfterContentInit {
   // @NOTE: discouraged instead use host: { class: 'control' }
   // @HostBinding('class') className = 'control';
 
@@ -38,6 +41,20 @@ export class ControlComponent {
     contentChild.required<ElementRef<HTMLInputElement | HTMLTextAreaElement>>(
       'input'
     );
+
+  constructor() {
+    afterRender(() => {
+      console.log('AFTER RENDER'); // @NOTE: this is called after the first render for any component
+    });
+
+    afterNextRender(() => {
+      console.log('AFTER NEXT RENDER'); // @NOTE: this is called after the first render for any component
+    });
+  }
+
+  ngAfterContentInit() {
+    // ...
+  }
 
   onClick() {
     console.log('Clicked!');
