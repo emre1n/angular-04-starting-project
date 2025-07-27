@@ -28,6 +28,9 @@ export class NewTicketComponent implements AfterViewInit, OnInit {
   // @Output() add = new EventEmitter<Ticket>(); // @NOTE: this is a regular property with Output decorator
   add = output<{ title: string; text: string }>(); // @NOTE: this is a signal with output method
 
+  enteredTitle = '';
+  enteredText = '';
+
   ngOnInit() {
     console.log('ON INIT');
     console.log('FORM: ', this.form?.nativeElement);
@@ -38,8 +41,10 @@ export class NewTicketComponent implements AfterViewInit, OnInit {
     console.log('FORM: ', this.form?.nativeElement);
   }
 
-  onSubmit(title: string, ticketText: string) {
-    this.add.emit({ title, text: ticketText });
-    this.form?.nativeElement.reset();
+  onSubmit() {
+    this.add.emit({ title: this.enteredTitle, text: this.enteredText });
+    // this.form?.nativeElement.reset();
+    this.enteredTitle = '';
+    this.enteredText = '';
   }
 }
