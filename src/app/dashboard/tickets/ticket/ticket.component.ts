@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, Input, input, output, signal } from '@angular/core';
 
 import type { Ticket } from '../ticket.model';
 
@@ -10,7 +10,8 @@ import type { Ticket } from '../ticket.model';
   styleUrl: './ticket.component.css',
 })
 export class TicketComponent {
-  data = input.required<Ticket>();
+  // @Input({}) // @NOTE: Configuration object is passed as a parameter to the input method
+  data = input.required<Ticket>(); // @NOTE: aliases are discouraged as a configuration object property
   close = output();
 
   detailsVisible = signal(false);
